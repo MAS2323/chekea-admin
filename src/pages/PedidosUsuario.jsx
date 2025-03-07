@@ -30,7 +30,7 @@ const PedidosUsuario = () => {
             style={styles.listItem}
             onClick={() => navigate(`/pedido-detalle/${pedido._id}`)}
           >
-            {pedido.image && pedido.image.length > 0 && (
+            {/* {pedido.image && pedido.image.length > 0 && (
               <img
                 src={
                   pedido.image[0]?.url || "../assets/img/placeholderImage.png"
@@ -38,17 +38,17 @@ const PedidosUsuario = () => {
                 alt="Pedido"
                 style={styles.image}
               />
-            )}
+            )} */}
             <div style={styles.description}>
               <p>
                 <strong>Descripción:</strong> {pedido.description}
               </p>
-              <p>
+              {/* <p>
                 <strong>Cantidad:</strong> {pedido.quantity}
               </p>
               <p>
                 <strong>Tiempo:</strong> {pedido.time} días
-              </p>
+              </p> */}
             </div>
           </li>
         ))}
