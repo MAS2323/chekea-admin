@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import SolicitarPedido from "./SolicitarPedido";
+// import SolicitarPedido from "./SolicitarPedido";
 import { CircularProgress } from "@mui/material";
 import MisPedidos from "./MisPedidos";
 import "../App.css";
@@ -59,7 +59,7 @@ function Menu() {
           maxHeight: "calc(100vh - 60px)", // Resta la altura de la barra de navegación
         }}
       >
-        {vista === "solicitar" ? <SolicitarPedido /> : <MisPedidos />}
+        {/* {vista === "solicitar" ? <SolicitarPedido /> : <MisPedidos />} */}
       </Container>
 
       {/* Barra de Navegación Inferior */}
