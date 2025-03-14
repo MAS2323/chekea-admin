@@ -14,7 +14,7 @@ function TodosUsuariosConPedidos() {
     const fetchUsuarios = async () => {
       try {
         const response = await axios.get(`${API_URL}/usuarios-con-pedidos`);
-        setUsuarios(response.data); // Guarda solo los IDs
+        setUsuarios(response.data); // Guarda tanto el userId como los pedidos
       } catch (err) {
         setError("Hubo un problema al cargar los usuarios.");
       } finally {
@@ -24,8 +24,8 @@ function TodosUsuariosConPedidos() {
     fetchUsuarios();
   }, []);
 
-  const handleUsuarioClick = (userId) => {
-    navigate(`/pedidos-usuario/${userId}`); // Navega a la pantalla de pedidos del usuario
+  const handleUsuarioClick = (userId, pedidos) => {
+    navigate(`/pedidos-usuario/${userId}`, { state: { pedidos } }); // Pasar los pedidos como estado
   };
 
   if (loading) {
@@ -43,13 +43,23 @@ function TodosUsuariosConPedidos() {
         <p style={styles.noUsuarios}>No hay usuarios con pedidos.</p>
       ) : (
         <div style={styles.scrollContainer}>
-          {usuarios.map((userId) => (
+          {usuarios.map((usuario) => (
             <div
-              key={userId}
+              key={usuario.userId}
               style={styles.card}
-              onClick={() => handleUsuarioClick(userId)}
+              onClick={() =>
+                handleUsuarioClick(usuario.userId, usuario.pedidos)
+              }
             >
-              <p style={styles.info}>🆔 {userId}</p>
+              <p style={styles.info}>🆔 Usuario: {usuario.userId}</p>
+              <p style={styles.info}>📦 Pedidos:</p>
+              <ul style={styles.list}>
+                {usuario.pedidos.map((pedidoId) => (
+                  <li key={pedidoId} style={styles.listItem}>
+                    {pedidoId}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -95,6 +105,7 @@ const styles = {
     background: "#f9f9f9",
     cursor: "pointer",
     transition: "background 0.2s ease-in-out",
+    textAlign: "left",
   },
   cardHover: {
     background: "#e0e0e0",
@@ -103,6 +114,15 @@ const styles = {
     fontSize: "16px",
     fontWeight: "bold",
     color: "#333",
+    marginBottom: "5px",
+  },
+  list: {
+    paddingLeft: "20px",
+  },
+  listItem: {
+    fontSize: "14px",
+    color: "#555",
+    marginBottom: "3px",
   },
   loading: {
     display: "block",
